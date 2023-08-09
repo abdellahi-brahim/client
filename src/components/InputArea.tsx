@@ -6,6 +6,10 @@ const InputArea = styled.div`
   justify-content: space-between;
   padding: ${({ theme }) => theme.spacing.small};
   border-top: 1px solid ${({ theme }) => theme.colors.primary};
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export default InputArea;

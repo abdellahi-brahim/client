@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 
+import GlobalStyles from './styles/GlobalStyles';
+
 import ChatContainer from './components/ChatContainer';
 import Header from './components/Header';
 import MessageList from './components/MessageList';
@@ -47,6 +49,8 @@ const App: React.FC = () => {
   };
 
   return (
+    <>
+    <GlobalStyles />
     <ChatContainer>
       <Header>Chat with Bot</Header>
       <MessageList>
@@ -63,11 +67,10 @@ const App: React.FC = () => {
         <TextInput
           value={input}
           onChange={e => setInput(e.target.value)}
-          placeholder="Type a message..."
-        />
+          placeholder="Type a message..." />
         <SendButton onClick={handleSend}>Send</SendButton>
       </InputArea>
-    </ChatContainer>
+    </ChatContainer></>
   );
 }
 

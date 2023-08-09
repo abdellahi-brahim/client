@@ -1,10 +1,10 @@
 const theme = {
   colors: {
-    primary: '#6200EE', 
-    background: '#f2f2f2',
+    background: '#f4f6f8',
+    primary: '#007B8A',
+    text: '#333',
     userMessage: '#E7F3FF',
     botMessage: '#D1D1D1',
-    text: '#333',
   },
   spacing: {
     small: '8px',
