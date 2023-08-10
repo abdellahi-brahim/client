@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
+
 import GlobalStyles from './styles/GlobalStyles';
+
 import ChatContainer from './components/ChatContainer';
 import Header from './components/Header';
 import MessageList from './components/MessageList';
@@ -43,10 +45,6 @@ const App: React.FC = () => {
     };
   }, []);
 
-  useEffect(() => {
-    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
-
   const handleSend = () => {
     if (input.trim()) {
       axios.post(`${BACKEND_URL}/api/message`, { content: input });
@@ -68,7 +66,7 @@ const App: React.FC = () => {
       <GlobalStyles />
       <ChatContainer>
         <Header>Chat with Groot</Header>
-        <MessageList messages={groupedMessages} />
+        <MessageList messages={groupedMessages} messageEndRef={messageEndRef} />
         <InputArea>
           <TextInput
             value={input}

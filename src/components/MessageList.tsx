@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { IMessage } from '../types/chat';
 import Message from './Message';
@@ -24,9 +24,14 @@ const DateHeader = styled.div`
 
 interface Props {
   messages: Record<string, IMessage[]>;
+  messageEndRef: React.RefObject<HTMLDivElement>;
 }
 
-const MessageList: React.FC<Props> = ({ messages }) => {
+const MessageList: React.FC<Props> = ({ messages, messageEndRef }) => {
+  useEffect(() => {
+    messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, messageEndRef]);
+
   return (
     <ListContainer>
       {Object.entries(messages).map(([date, messagesForDate]) => (
@@ -37,6 +42,7 @@ const MessageList: React.FC<Props> = ({ messages }) => {
           ))}
         </div>
       ))}
+      <div ref={messageEndRef} />
     </ListContainer>
   );
 };
