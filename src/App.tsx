@@ -3,7 +3,6 @@ import io from 'socket.io-client';
 import axios from 'axios';
 
 import GlobalStyles from './styles/GlobalStyles';
-
 import ChatContainer from './components/ChatContainer';
 import Header from './components/Header';
 import MessageList from './components/MessageList';
