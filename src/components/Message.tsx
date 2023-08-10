@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { FaUserAlt, FaTree  } from 'react-icons/fa';
+import ReactMarkdown from 'react-markdown';
 
 const baseMessageStyle = css`
   margin: ${({ theme }) => theme.spacing.small} 0;
@@ -60,7 +61,9 @@ const Message: React.FC<MessageProps> = ({ type, content, date }) => {
       <IconContainer>
         <IconComponent />
       </IconContainer>
-      <TextContent>{content}</TextContent>
+      <TextContent>
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </TextContent>
       <DateText>{new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</DateText>
     </MessageComponent>
   );
