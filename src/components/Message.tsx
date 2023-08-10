@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { FaUserAlt, FaRobot } from 'react-icons/fa';
+import { FaUserAlt, FaTree  } from 'react-icons/fa';
 
 const baseMessageStyle = css`
   margin: ${({ theme }) => theme.spacing.small} 0;
@@ -53,7 +53,7 @@ interface MessageProps {
 const Message: React.FC<MessageProps> = ({ type, content, date }) => {
   
   const MessageComponent = type === 'user' ? StyledUserMessage : StyledBotMessage;
-  const IconComponent = type === 'user' ? FaUserAlt : FaRobot;
+  const IconComponent = type === 'user' ? FaUserAlt : FaTree ;
 
   return (
     <MessageComponent>

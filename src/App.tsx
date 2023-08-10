@@ -67,7 +67,7 @@ const App: React.FC = () => {
     <>
       <GlobalStyles />
       <ChatContainer>
-        <Header>Chat with Bot</Header>
+        <Header>Chat with Groot</Header>
         <MessageList messages={groupedMessages} />
         <InputArea>
           <TextInput
