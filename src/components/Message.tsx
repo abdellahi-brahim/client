@@ -11,36 +11,25 @@ const baseMessageStyle = css`
 `;
 
 const IconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-right: ${({ theme }) => theme.spacing.small};
-`;
-
-const Circle = styled.div`
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #f5f5f5;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: ${({ theme }) => theme.spacing.small};
 `;
 
-const Icon = styled.div`
-  font-size: 16px;
-  padding: 2px;
-`;
-
-const MessageContent = styled.div`
-  display: flex;
-  align-items: center;
+const TextContent = styled.div`
   flex: 1;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
+  padding: 0 10px;
 `;
 
 const DateText = styled.span`
   font-size: 0.8em;
   color: #888;
+  width: 100px;
+  text-align: right;
 `;
 
 const StyledUserMessage = styled.div`
@@ -68,14 +57,10 @@ const Message: React.FC<MessageProps> = ({ type, content, date }) => {
 
   return (
     <MessageComponent>
-      <MessageContent>
-        <IconContainer>
-          <Circle>
-            <Icon as={IconComponent} />
-          </Circle>
-          {content}
-        </IconContainer>
-      </MessageContent>
+      <IconContainer>
+        <IconComponent />
+      </IconContainer>
+      <TextContent>{content}</TextContent>
       <DateText>{new Date(date).toLocaleString()}</DateText>
     </MessageComponent>
   );
