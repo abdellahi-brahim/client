@@ -17,23 +17,24 @@ const DateHeader = styled.div`
   text-align: center;
   margin: 10px 0;
   font-weight: bold;
-  color: #555;
-  border-bottom: 1px solid #ddd;
+  color: ${({ theme }) => theme.colors.secondaryText};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   padding-bottom: 5px;
 `;
 
 interface Props {
   messages: Record<string, IMessage[]>;
   messageEndRef: React.RefObject<HTMLDivElement>;
+  onScroll: (event: React.UIEvent<HTMLDivElement>) => void;
 }
 
-const MessageList: React.FC<Props> = ({ messages, messageEndRef }) => {
+const MessageList: React.FC<Props> = ({ messages, messageEndRef, onScroll }) => {
   useEffect(() => {
     messageEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, messageEndRef]);
 
   return (
-    <ListContainer>
+    <ListContainer onScroll={onScroll}>
       {Object.entries(messages).map(([date, messagesForDate]) => (
         <div key={date}>
           <DateHeader>{date}</DateHeader>
