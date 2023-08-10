@@ -1,12 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
-
 import GlobalStyles from './styles/GlobalStyles';
 import ChatContainer from './components/ChatContainer';
 import Header from './components/Header';
 import MessageList from './components/MessageList';
-import Message from './components/Message';
 import InputArea from './components/InputArea';
 import TextInput from './components/TextInput';
 import SendButton from './components/SendButton';
@@ -14,6 +12,17 @@ import { IMessage } from './types/chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const socket = io(BACKEND_URL as string);
+
+function groupByDate(messages: IMessage[]) {
+  return messages.reduce((acc, message) => {
+    const date = new Date(message.timestamp).toLocaleDateString();
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(message);
+    return acc;
+  }, {} as Record<string, IMessage[]>);
+}
 
 const App: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
@@ -52,23 +61,21 @@ const App: React.FC = () => {
     }
   };
 
+  const groupedMessages = groupByDate(messages);
+
   return (
     <>
       <GlobalStyles />
       <ChatContainer>
         <Header>Chat with Bot</Header>
-        <MessageList>
-          {messages.map((message, index) => (
-            <Message key={index} type={message.type} content={message.content} date={message.timestamp} />
-          ))}
-          <div ref={messageEndRef} />
-        </MessageList>
+        <MessageList messages={groupedMessages} />
         <InputArea>
           <TextInput
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Type a message..." />
+            placeholder="Type a message..."
+          />
           <SendButton onClick={handleSend}>Send</SendButton>
         </InputArea>
       </ChatContainer>

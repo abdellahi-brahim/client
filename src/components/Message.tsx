@@ -61,7 +61,7 @@ const Message: React.FC<MessageProps> = ({ type, content, date }) => {
         <IconComponent />
       </IconContainer>
       <TextContent>{content}</TextContent>
-      <DateText>{new Date(date).toLocaleString()}</DateText>
+      <DateText>{new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</DateText>
     </MessageComponent>
   );
 };
