@@ -9,6 +9,7 @@ import MessageList from './components/MessageList';
 import InputArea from './components/InputArea';
 import TextInput from './components/TextInput';
 import SendButton from './components/SendButton';
+import TypingAnimation from './components/TypingAnimation'; // Import the TypingAnimation component
 import { IMessage } from './types/chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -28,6 +29,7 @@ function groupByDate(messages: IMessage[]) {
 const App: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [input, setInput] = useState<string>('');
+  const [isTyping, setIsTyping] = useState<boolean>(false); // State to manage the typing animation
   const messageEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -39,8 +41,18 @@ const App: React.FC = () => {
       setMessages(prevMessages => [...prevMessages, message]);
     });
 
+    socket.on('typing', () => {
+      setIsTyping(true);
+    });
+
+    socket.on('stop_typing', () => {
+      setIsTyping(false);
+    });
+
     return () => {
       socket.off('message');
+      socket.off('typing');
+      socket.off('stop_typing');
     };
   }, []);
 
@@ -66,14 +78,17 @@ const App: React.FC = () => {
       <ChatContainer>
         <Header>Chat with Groot</Header>
         <MessageList messages={groupedMessages} messageEndRef={messageEndRef} />
+        {isTyping && <TypingAnimation />}
         <InputArea>
           <TextInput
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
+            disabled={isTyping}
           />
-          <SendButton onClick={handleSend}>Send</SendButton>
+
+          <SendButton onClick={handleSend} disabled={isTyping}>Send</SendButton>
         </InputArea>
       </ChatContainer>
     </>

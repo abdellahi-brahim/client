@@ -13,6 +13,15 @@ const SendButton = styled.button`
   &:hover {
     background-color: #4a00d1;
   }
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    &:hover {
+      background-color: ${({ theme }) => theme.colors.secondary};
+    }
+  }
 `;
 
 export default SendButton;

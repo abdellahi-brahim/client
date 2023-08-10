@@ -6,6 +6,12 @@ const TextInput = styled.input`
   border: 1px solid ${({ theme }) => theme.colors.primary};
   border-radius: 8px;
   max-width: calc(100% - 100px);
+
+  &[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #f2f2f2;
+  }
 `;
 
 export default TextInput;
