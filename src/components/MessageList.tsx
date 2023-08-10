@@ -17,8 +17,8 @@ const DateHeader = styled.div`
   text-align: center;
   margin: 10px 0;
   font-weight: bold;
-  color: #555;
-  border-bottom: 1px solid #ddd;
+  color: ${({ theme }) => theme.colors.textSecondary};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   padding-bottom: 5px;
 `;
 

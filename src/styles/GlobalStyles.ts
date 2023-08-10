@@ -2,12 +2,12 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyles = createGlobalStyle`
   body {
-    font-family: 'Poppins', sans-serif;
+    font-family: ${({ theme }) => theme.typography.fontFamily};
     margin: 0;
     padding: 0;
-    background-color: #f4f6f8;  // Soft gray background
-    color: #333;  // Dark gray text
-    font-size: 16px;
+    background-color: ${({ theme }) => theme.colors.background};
+    color: ${({ theme }) => theme.colors.text};
+    font-size: ${({ theme }) => theme.typography.fontSize};
   }
 
   *, *::after, *::before {

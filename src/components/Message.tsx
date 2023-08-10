@@ -11,6 +11,19 @@ const baseMessageStyle = css`
   justify-content: space-between;
 `;
 
+const StyledUserMessage = styled.div`
+  ${baseMessageStyle};
+  align-self: flex-end;
+  background-color: ${({ theme }) => theme.colors.userMessageBg};
+`;
+
+const StyledBotMessage = styled.div`
+  ${baseMessageStyle};
+  align-self: flex-start;
+  background-color: ${({ theme }) => theme.colors.botMessageBg};
+`;
+
+
 const IconContainer = styled.div`
   width: 40px;
   display: flex;
@@ -28,21 +41,10 @@ const TextContent = styled.div`
 
 const DateText = styled.span`
   font-size: 0.8em;
-  color: #888;
+  color: ${({ theme }) => theme.colors.textSecondary};
   width: 100px;
   text-align: right;
-`;
-
-const StyledUserMessage = styled.div`
-  ${baseMessageStyle};
-  align-self: flex-end;
-  background-color: ${({ theme }) => theme.colors.userMessage};
-`;
-
-const StyledBotMessage = styled.div`
-  ${baseMessageStyle};
-  align-self: flex-start;
-  background-color: ${({ theme }) => theme.colors.botMessage};
+  font-family: ${({ theme }) => theme.typography.fontFamily};
 `;
 
 interface MessageProps {
