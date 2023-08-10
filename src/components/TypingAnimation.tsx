@@ -46,6 +46,7 @@ const TypingText = styled.span`
   font-family: ${({ theme }) => theme.typography.fontFamily};
   font-size: 0.9em;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.textPrimary};
 `;
 
 const TypingAnimation: React.FC = () => (
