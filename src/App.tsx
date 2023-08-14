@@ -11,6 +11,8 @@ import TextInput from './components/TextInput';
 import SendButton from './components/SendButton';
 import ScrollToBottomButton from './components/ScrollToBottomButton';
 import TypingAnimation from './components/TypingAnimation';
+import LoadingAnimation from './components/LoadingAnimation';
+
 import { IMessage } from './types/chat';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
@@ -31,12 +33,21 @@ const App: React.FC = () => {
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [input, setInput] = useState<string>('');
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [loading, setLoading] = useState(true);
 
   const messageEndRef = useRef<HTMLDivElement | null>(null);
   const isScrolledUpRef = useRef(false);
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   useEffect(() => {
+    // Ping the backend to wake it up
+    axios.get(`${BACKEND_URL}/api/ping`).then(() => {
+      setLoading(false);
+    }).catch(error => {
+      console.error("Error pinging the backend:", error);
+      setLoading(false); 
+    });
+
     axios.get(`${BACKEND_URL}/api/chat`).then(response => {
       setMessages(response.data);
     });
@@ -98,7 +109,7 @@ const App: React.FC = () => {
       <GlobalStyles />
       <ChatContainer>
         <Header>Chat with Groot</Header>
-        <MessageList messages={groupedMessages} messageEndRef={messageEndRef} onScroll={handleScroll} />
+        {loading ? <LoadingAnimation /> : <MessageList messages={groupedMessages} messageEndRef={messageEndRef} onScroll={handleScroll} />}
         <ScrollToBottomButton onClick={scrollToBottom} isVisible={showScrollButton} />
         {isTyping && <TypingAnimation />}
         <InputArea>
